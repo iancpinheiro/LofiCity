@@ -7,7 +7,7 @@
 export const config = { runtime: 'edge' };
 
 /** Keep in sync with METAR_STATIONS in src/sky/cities.ts (checked by test/rain-gate.test.ts). */
-const STATIONS = ['SBKG', 'SBJP'];
+const STATIONS = ['SBKG', 'SBJP', 'SBRJ'];
 const UPSTREAM = 'https://aviationweather.gov/api/data/metar';
 
 const json = (body: unknown, status: number, cache: string) =>

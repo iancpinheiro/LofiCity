@@ -6,10 +6,10 @@ import { CITIES } from '../src/sky/cities.ts';
 import { PARAIBA } from '../src/ui/paraiba.ts';
 import { GRID, insidePolygon, mapStep, placeLabels, project, shortName, splitCities } from '../src/ui/map-rules.ts';
 
-test('pins come from the city registry: every Paraíba city on the map, Tóquio in the elsewhere row', () => {
+test('pins come from the city registry: every Paraíba city on the map, the others in the elsewhere row', () => {
   const { onMap, elsewhere } = splitCities(CITIES);
-  assert.deepEqual(onMap.map((c) => c.id), CITIES.filter((c) => c.br).map((c) => c.id));
-  assert.deepEqual(elsewhere.map((c) => c.id), ['tokyo']);
+  assert.deepEqual(onMap.map((c) => c.id), ['esperanca', 'campina', 'joaopessoa', 'areia', 'remigio']);
+  assert.deepEqual(elsewhere.map((c) => c.id), ['tokyo', 'rio']);
   assert.equal(onMap.length + elsewhere.length, CITIES.length);
 });
 
@@ -28,6 +28,7 @@ test('every Paraíba city lies on (or at the coast of) the state outline and ins
     assert.ok(p.x > 0 && p.x < 1 && p.y > 0 && p.y < 1, `${c.id} projected inside the map`);
   }
   assert.ok(!insidePolygon(139.69, 35.68, PARAIBA));
+  assert.ok(!insidePolygon(-43.18, -22.9125, PARAIBA));
 });
 
 test('the projection keeps geography: João Pessoa east of Campina, Remígio north of Campina', () => {

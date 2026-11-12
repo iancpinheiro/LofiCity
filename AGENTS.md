@@ -2,7 +2,7 @@
 
 ## Purpose
 
-LofiCity is a lo-fi pixel-art web app: scenes for several cities (Esperança, Campina Grande, João Pessoa, Areia, Remígio, Tokyo) that follow each city's real clock and live weather, plus two radio stations. `README.md` is a short pt-BR overview with screenshots (`public/screens/`); the full reference (cities, scenes, URL options `#city=`, `#scene=`, `#at=`, `#wx=`, `#debug`, keys, sharing, credits) is `docs/DEVELOPING.md`. Scene lists, `#scene=` ids and reference-photo credits go there.
+LofiCity is a lo-fi pixel-art web app: scenes for several cities (Esperança, Campina Grande, João Pessoa, Areia, Remígio, Tokyo, Rio de Janeiro) that follow each city's real clock and live weather, plus two radio stations. `README.md` is a short pt-BR overview with screenshots (`public/screens/`); the full reference (cities, scenes, URL options `#city=`, `#scene=`, `#at=`, `#wx=`, `#debug`, keys, sharing, credits) is `docs/DEVELOPING.md`. Scene lists, `#scene=` ids and reference-photo credits go there.
 
 Stack: TypeScript (strict), Vite, `vite-plugin-singlefile` (the build is one self-contained `dist/index.html`), pnpm.
 

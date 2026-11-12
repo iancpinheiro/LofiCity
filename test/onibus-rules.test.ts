@@ -72,5 +72,6 @@ test('a tapped bus boards its own interior; Tokyo buses only honk', () => {
   assert.equal(defaultSkin('campina'), 'sttp');
   assert.equal(defaultSkin('esperanca'), 'saojose');
   assert.equal(boardable('tokyo'), false);
+  assert.equal(boardable('rio'), false);
   assert.ok(boardable('areia'));
 });

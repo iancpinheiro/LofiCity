@@ -1,6 +1,6 @@
 # LoFi City
 
-Cenas lo-fi em pixel art de cidades da Paraíba (Esperança, Campina Grande, João Pessoa, Areia, Remígio) e de Tóquio que seguem o **horário real** e o **clima ao vivo** de cada lugar: se está chovendo lá, chove na tela; se é noite lá, é noite aqui. Tem gente, bichos e trânsito que dá para tocar, sinos da matriz, jogos no Campo da Rodoviária e duas rádios com música real em Creative Commons.
+Cenas lo-fi em pixel art de cidades da Paraíba (Esperança, Campina Grande, João Pessoa, Areia, Remígio), do Rio de Janeiro e de Tóquio que seguem o **horário real** e o **clima ao vivo** de cada lugar: se está chovendo lá, chove na tela; se é noite lá, é noite aqui. Tem gente, bichos e trânsito que dá para tocar, sinos da matriz, jogos no Campo da Rodoviária e duas rádios com música real em Creative Commons.
 
 **Ao vivo:** https://loficity-lac.vercel.app
 
@@ -14,7 +14,7 @@ Cenas lo-fi em pixel art de cidades da Paraíba (Esperança, Campina Grande, Jo�
 
 - Tudo é desenhado em código num framebuffer indexado com paleta, graduada para dia, pôr do sol, noite e nublado. Nenhuma imagem ou sprite.
 - O clima vem só da API [Open-Meteo](https://open-meteo.com/), sem chave. Nunca é inventado: sem leitura, a tela diz "clima indisponível".
-- Chuva, garoa e tempestade só aparecem quando a previsão passa de 0,5 mm/h ou quando o METAR do aeroporto mais próximo (Campina Grande para Esperança, Campina, Remígio e Areia; João Pessoa para a capital) informa chuva agora. A garoa de 0,1 mm que o modelo costuma prever não molha a tela sozinha.
+- Chuva, garoa e tempestade só aparecem quando a previsão passa de 0,5 mm/h ou quando o METAR do aeroporto mais próximo (Campina Grande para Esperança, Campina, Remígio e Areia; João Pessoa para a capital; Santos Dumont para o Rio) informa chuva agora. A garoa de 0,1 mm que o modelo costuma prever não molha a tela sozinha.
 - A rádio toca álbuns do [Internet Archive](https://archive.org/) sob licenças Creative Commons, com crédito e link de cada faixa.
 - Botão de compartilhar: copia o link exato da cena (`#city=`, `#scene=`) ou baixa um card 1080x1920 para stories. Nada é postado: quem envia é você.
 - Botão "i" (só nas cenas de Esperança): conta a história real do lugar da cena, com curiosidades e links para as fontes (blog História Esperancense, Prefeitura e outras). Nada é inventado: onde não achamos a história de uma rua, o texto diz isso.

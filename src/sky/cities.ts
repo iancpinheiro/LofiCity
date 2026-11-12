@@ -2,9 +2,9 @@
    the moon and the live weather), its climate region (only for the calendar season label;
    it never drives the weather shown) and its own scenes. */
 
-export type CityId = 'esperanca' | 'campina' | 'joaopessoa' | 'areia' | 'remigio' | 'tokyo';
-/** Japan; the Borborema plateau (Agreste); the cooler, wetter, misty Brejo; the hot humid coast. */
-export type Climate = 'japan' | 'agreste' | 'brejo' | 'litoral';
+export type CityId = 'esperanca' | 'campina' | 'joaopessoa' | 'areia' | 'remigio' | 'tokyo' | 'rio';
+/** Japan; the Borborema plateau (Agreste); the cooler, wetter, misty Brejo; the hot humid coast; the southeast coast. */
+export type Climate = 'japan' | 'agreste' | 'brejo' | 'litoral' | 'sudeste';
 
 export interface City {
   id: CityId;
@@ -23,8 +23,8 @@ export interface City {
   metar?: MetarStation;
 }
 
-/** Stations the /api/metar proxy serves: Campina Grande (SBKG) and João Pessoa (SBJP) airports. */
-export const METAR_STATIONS = ['SBKG', 'SBJP'] as const;
+/** Stations the /api/metar proxy serves: Campina Grande (SBKG), João Pessoa (SBJP) and Santos Dumont (SBRJ). */
+export const METAR_STATIONS = ['SBKG', 'SBJP', 'SBRJ'] as const;
 export type MetarStation = (typeof METAR_STATIONS)[number];
 
 // The first city is the default. All Paraíba cities run on Brasília time.
@@ -40,6 +40,8 @@ export const CITIES: City[] = [
   { id: 'areia', name: 'Areia · PB', utc: -3, lat: -6.963, lon: -35.692, climate: 'brejo', br: true, metar: 'SBKG' },
   { id: 'remigio', name: 'Remígio · PB', utc: -3, lat: -6.95, lon: -35.834, climate: 'agreste', br: true, metar: 'SBKG' },
   { id: 'tokyo', name: 'Tóquio', utc: 9, lat: 35.68, lon: 139.69, climate: 'japan', br: false },
+  // Arcos da Lapa, Centro. METAR: Santos Dumont (SBRJ), about 3 km east.
+  { id: 'rio', name: 'Rio de Janeiro', utc: -3, lat: -22.9125, lon: -43.18, climate: 'sudeste', br: true, metar: 'SBRJ' },
 ];
 
 export const cityById = (id: string | null | undefined): City => CITIES.find((c) => c.id === id) ?? CITIES[0];

@@ -7,9 +7,10 @@ import { type WxState, raining } from './rain-rules.ts';
 import { PHRASES, type Phrase, type Role, type Tod, type WxTag } from './phrases.ts';
 
 export type { Phrase, Role, Tod, WxTag };
-export type City = 'esperanca' | 'campina' | 'joaopessoa' | 'areia' | 'remigio' | 'tokyo';
+export type City = 'esperanca' | 'campina' | 'joaopessoa' | 'areia' | 'remigio' | 'tokyo' | 'rio';
 
-/** At or above this real temperature (°C) people may complain about the heat. */
+/** Paraíba cities share one pool. Tokyo and Rio do not: each has its own lines. */
+const PARAIBA: ReadonlySet<City> = new Set(['esperanca', 'campina', 'joaopessoa', 'areia', 'remigio']);
 export const HOT_C = 30;
 /** At or below this real temperature (°C) people may mention the cold (the Nordeste feels it sooner). */
 export const COLD_C = { br: 18, tokyo: 8 } as const;
@@ -40,7 +41,7 @@ export function weatherTags(wx: WxCtx, city: City): WxTag[] {
 export function fits(p: Phrase, ctx: SpeechCtx, tags: readonly WxTag[]): boolean {
   if (!(p.who ?? ['passerby']).includes(ctx.role)) return false;
   if (p.scene) { if (p.scene !== ctx.scene) return false; }
-  else if (p.city === 'br') { if (ctx.city === 'tokyo') return false; }
+  else if (p.city === 'br') { if (!PARAIBA.has(ctx.city)) return false; }
   else if (p.city !== ctx.city) return false;
   if (p.tod && !p.tod.includes(timeOfDay(ctx.hour))) return false;
   if (p.wx && !tags.includes(p.wx)) return false;

@@ -14,7 +14,7 @@
 
 export type BusSkin = 'sttp' | 'saojose' | 'micro' | 'escolar';
 export type Landscape = 'towers' | 'market' | 'coast' | 'colonial';
-export type BusCity = 'esperanca' | 'campina' | 'joaopessoa' | 'areia' | 'remigio' | 'tokyo';
+export type BusCity = 'esperanca' | 'campina' | 'joaopessoa' | 'areia' | 'remigio' | 'tokyo' | 'rio';
 
 /** Seats along the far wall and the most people standing in the aisle, per bus. */
 export const SEATS: Readonly<Record<BusSkin, number>> = { sttp: 9, saojose: 9, micro: 6, escolar: 9 };
@@ -105,11 +105,11 @@ export function skinForVehicle(kind: string): BusSkin | null {
 }
 /** The bus you are in when the scene is reached without tapping one. */
 export const defaultSkin = (city: BusCity): BusSkin => (city === 'campina' ? 'sttp' : 'saojose');
-/** Cities whose streets have buses you can board (Tokyo's buses only honk). */
-export const boardable = (city: BusCity) => city !== 'tokyo';
+/** Cities whose streets have buses you can board (Tokyo's buses only honk; Rio's square has none). */
+export const boardable = (city: BusCity) => city !== 'tokyo' && city !== 'rio';
 
 /** What goes past the window in each city: Campina's high-rises, the market streets of the small
     towns, João Pessoa's seafront, Areia's colonial houses on the hills. */
 export const LANDSCAPE: Readonly<Record<BusCity, Landscape>> = {
-  campina: 'towers', esperanca: 'market', remigio: 'market', joaopessoa: 'coast', areia: 'colonial', tokyo: 'towers',
+  campina: 'towers', esperanca: 'market', remigio: 'market', joaopessoa: 'coast', areia: 'colonial', tokyo: 'towers', rio: 'towers',
 };

@@ -19,7 +19,7 @@ export const project = (lat: number, lon: number) => ({
 export const inFrame = (lat: number, lon: number) =>
   lon >= FRAME.west && lon <= FRAME.east && lat <= FRAME.north && lat >= FRAME.south;
 
-/** Cities inside the frame get a pin on the map; the others (Tóquio) are listed beside it. Registry order is kept. */
+/** Cities inside the frame get a pin on the map; the others (Tóquio, Rio de Janeiro) are listed beside it. Registry order is kept. */
 export function splitCities<T extends Place>(cities: readonly T[]) {
   return { onMap: cities.filter((c) => inFrame(c.lat, c.lon)), elsewhere: cities.filter((c) => !inFrame(c.lat, c.lon)) };
 }

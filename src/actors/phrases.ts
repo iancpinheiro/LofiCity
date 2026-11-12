@@ -170,6 +170,21 @@ export const PHRASES: Phrase[] = [
   ...group({ ...BR, who: ['pupil'] }, ['Tia, já chegamos?', 'Hoje tem educação física!', 'Senta comigo!', 'Esqueci a merenda em casa…', 'Me empresta um lápis?', 'Quem vai no recreio comigo?']),
   ...group({ ...BR, who: ['pupil'], tod: ['tarde', 'noite'] }, ['Bora jogar bola depois da aula?']),
 
+  // ---------- Rio de Janeiro (plain pt-BR; the Paraíba pool stays in Paraíba) ----------
+  ...group({ city: 'rio' }, [
+    'E aí, beleza?', 'Que lugar bonito.', 'Tô só dando uma volta.', 'Até já!', 'Vou andando pela praça.',
+  ]),
+  ...group({ city: 'rio', tod: ['manha'] }, ['Bom dia!', 'Dia bonito pra caminhar.']),
+  ...group({ city: 'rio', tod: ['tarde'] }, ['Boa tarde por aqui.', 'Tarde gostosa.']),
+  ...group({ city: 'rio', tod: ['noite'] }, ['Boa noite!', 'A cidade acende.']),
+  ...group({ city: 'rio', tod: ['madrugada'] }, ['Que silêncio bom.', 'Voltando pra casa.']),
+  ...group({ city: 'rio', wx: 'heat', who: OUT }, ['Que calor, hein?', 'Preciso de uma sombra.']),
+  ...group({ city: 'rio', wx: 'rain', who: OUT }, ['Choveu na Lapa.', 'A praça ficou molhada.']),
+  ...group({ city: 'rio', wx: 'cold', who: OUT }, ['Frio raro por aqui.', 'Hoje pede um casaco.']),
+  ...group({ scene: 'arcos-da-lapa' }, ['Olha o tamanho desses arcos.', 'A Lapa tem um charme.', 'Vou tirar uma foto dos arcos.', 'koe cria!', 'eai, irmão!?', 'fala comigo, comandante!', 'mó paz.']),
+  ...group({ scene: 'arcos-da-lapa', tod: ['manha', 'tarde'] }, ['Olha o bonde lá em cima!']),
+  ...group({ scene: 'arcos-da-lapa', tod: ['noite'] }, ['Os arcos iluminados são lindos.', 'ta calor até de noite!']),
+
   // ---------- Tóquio (pt-BR simples, com um toque de japonês) ----------
   ...group(TK, ['Konnichiwa!', 'Arigatô!', 'Sumimasen, com licença!', 'Tóquio nunca dorme.', 'Vou pegar um onigiri.', 'Oi, tudo bem? Genki?']),
   ...group({ ...TK, tod: ['manha'] }, ['Ohayô! Bom dia!', 'Correndo pro trem!']),

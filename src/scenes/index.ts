@@ -1,5 +1,6 @@
 import type { CityId } from '../sky/cities';
 import { acudeVelho } from './acude-velho';
+import { arcosLapa } from './arcos-da-lapa';
 import { armazemParaiba } from './armazem-paraiba';
 import { caboBranco } from './cabo-branco';
 import { centroAreia } from './centro-areia';
@@ -40,6 +41,7 @@ export const SCENES: Record<CityId, Scene[]> = {
   joaopessoa: [caboBranco],
   areia: [centroAreia],
   remigio: [lagoaRemigio, cinemaRemigio, cinemaFachada],
+  rio: [arcosLapa],
 };
 
 const LAST_KEY = 'loficity:lastScene:';

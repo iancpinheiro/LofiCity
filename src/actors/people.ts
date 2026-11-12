@@ -160,7 +160,7 @@ function dress(p: Person, a: Archetype) {
       p.stoop = r() < 0.6; p.cane = r() < 0.5; p.topC = pick([CBEIGE, WOOD, CGREEN, STEEL, CNAVY]); p.sp = 6 + r() * 3;
       p.hat = !female && r() < 0.4 ? 2 : 0; p.hatC = pick([CBEIGE, STEEL]);
       if (female && r() < 0.5) { p.bag = Bag.Shoulder; p.bagC = WOOD; }
-      if (br && !female && r() < 0.45) { p.hat = 3; p.hatC = WOOD; } // chapéu de couro
+      if (br && S.city.climate !== 'sudeste' && !female && r() < 0.45) { p.hat = 3; p.hatC = WOOD; } // chapéu de couro, Agreste and Brejo
       break;
     case 'casual':
       p.phone = r() < 0.5; p.hat = r() < 0.3 ? (cold ? 1 : 2) : 0; p.hatC = pick([VOID, CRED, CNAVY, CBEIGE]);

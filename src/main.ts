@@ -128,6 +128,7 @@ function seasonWord(): string {
   if (city.br) {
     const tags: string[] = [];
     if (city.climate === 'litoral') tags.push(m >= 3 && m <= 7 ? 'inverno chuvoso' : 'verão');
+    else if (city.climate === 'sudeste') tags.push(m === 11 || m <= 1 ? 'verão' : m <= 4 ? 'outono' : m <= 7 ? 'inverno' : 'primavera');
     else if (m >= 2 && m <= 6) tags.push('quadra chuvosa');
     if (S.festa) tags.push(S.procissao ? 'procissão' : 'festa da padroeira');
     if (S.saoJoao) tags.push('são joão');

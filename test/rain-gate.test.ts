@@ -127,6 +127,7 @@ test('a city without a METAR station uses the threshold only; every station is s
   assert.equal(gateRain(heavy, null).rain, 0.6);
   for (const id of ['esperanca', 'campina', 'remigio', 'areia']) assert.equal(cityById(id).metar, 'SBKG', id);
   assert.equal(cityById('joaopessoa').metar, 'SBJP');
+  assert.equal(cityById('rio').metar, 'SBRJ');
   const proxy = readFileSync(new URL('../api/metar.ts', import.meta.url), 'utf8');
   const allow = /const STATIONS = \[([^\]]*)\]/.exec(proxy)?.[1] ?? '';
   for (const st of METAR_STATIONS) assert.ok(allow.includes(`'${st}'`), `${st} in the proxy allowlist`);

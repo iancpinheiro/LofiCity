@@ -62,7 +62,7 @@ const PRACAS = new Set(['praca-matriz', 'praca-cultura']);
 
 function tables(city: CityId, scene: string): { people: readonly number[]; traffic: readonly number[] } {
   if (city === 'tokyo') return { people: TOKYO, traffic: TOKYO };
-  if (city === 'campina' || city === 'joaopessoa') return { people: CITY, traffic: CITY };
+  if (city === 'campina' || city === 'joaopessoa' || city === 'rio') return { people: CITY, traffic: CITY };
   return { people: city === 'esperanca' && PRACAS.has(scene) ? PRACA : TOWN, traffic: TOWN_TRAFFIC };
 }
 

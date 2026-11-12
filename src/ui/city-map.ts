@@ -1,5 +1,5 @@
 /* City picker: a native modal <dialog> with a pixel map of Paraíba. Pins come from the city registry
-   (src/sky/cities.ts); cities outside the map (Tóquio) are buttons in an "elsewhere" row under it.
+   (src/sky/cities.ts); cities outside the map (Tóquio, Rio de Janeiro) are buttons in an "elsewhere" row under it.
    The map picture is decorative (aria-hidden); the pin labels and the row are real buttons inside
    named lists, which is also the text alternative. Closed, the dialog is display:none, so it never
    takes taps from the scene; open, it is modal, so the scene and the HUD are inert behind it. */

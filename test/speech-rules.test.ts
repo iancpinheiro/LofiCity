@@ -12,6 +12,7 @@ const SCENES = {
   campina: ['acude-velho', 'piramide-parque-do-povo', 'estacao-velha', 'parque-da-crianca', 'partage-shopping', 'partage-interior', 'partage-alimentacao', 'cinema-partage', 'terminal-integracao'],
   joaopessoa: ['cabo-branco'], areia: ['centro-areia'], remigio: ['lagoa-remigio', 'cinema-remigio', 'cinema-facade-remigio'],
   tokyo: ['rain-corner', 'neon-alley', 'konbini', 'shrine'],
+  rio: ['arcos-da-lapa'],
 } as const;
 type C = keyof typeof SCENES;
 const ALL = Object.entries(SCENES).flatMap(([city, ss]) => ss.map((scene) => ({ city: city as C, scene })));
@@ -150,6 +151,14 @@ test('time of day: manhã, tarde, noite and madrugada lines only at their hours'
   assert.ok(texts(ctx({ hour: 7 })).has('Bom dia, viu?'));
   assert.ok(!texts(ctx({ hour: 20 })).has('Bom dia, viu?'));
   assert.ok(texts(ctx({ hour: 2 })).has('Oxe, acordado essa hora?'));
+  const lapa = (hour: number) => texts(ctx({ city: 'rio', scene: 'arcos-da-lapa', hour, wx: { kind: 'unavailable', temp: null } }));
+  for (const t of ['koe cria!', 'eai, irmão!?', 'fala comigo, comandante!', 'mó paz.']) {
+    assert.ok(lapa(13).has(t), t);
+    assert.ok(lapa(22).has(t), t);
+  }
+  assert.ok(lapa(22).has('ta calor até de noite!'));
+  assert.ok(!lapa(13).has('ta calor até de noite!'));
+  assert.ok(!lapa(10).has('ta calor até de noite!'));
 });
 
 test('Capelinha: no passer-by lines; the priest, congregation and visitors each get their own', () => {
