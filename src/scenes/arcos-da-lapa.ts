@@ -5,14 +5,14 @@
    used as reference only, and neither is in the repo.
 
    The foreground in both photos is a stone plaza, not a road: no zebra, no signal, no
-   moving traffic. The white cars sit inside the lower openings, static, as in the day photo.
-   What shows through the arches (palms on the left, low roofs, a painted wall on the right)
-   is only as specific as the photos: the mural is colour blocks, no lettering. The crowd is
+   moving traffic.
+   Behind the arches are the cathedral, low urban facades and a painted wall on the right;
+   the mural is colour blocks, no lettering. The crowd is
    the city's rhythm scaled down, because both photos show a wide, quiet square. */
 import { L, Lp, WW, blitLayer, getW, newLayer, put, rect, snowCaps, type Layer } from '../engine/gfx';
 import { mulberry32 } from '../engine/math';
 import {
-  AMB, AMBD, BMID, BNEAR, CBEIGE, CBLUE, CNAVY, CRED, CYELL, FORNG, HAIR1, LIGHT,
+  AMB, AMBD, BMID, BNEAR, CBEIGE, CBLUE, CNAVY, CRED, CYELL, HAIR1, LIGHT,
   SKIN1, SKIN2, STEEL, STONE, STONEL, TILEW, WHITE, WOOD, WWARM,
 } from '../engine/palette';
 import { configure, drawFarPrecip, drawNearPrecip, drawRipples, precip } from '../fx/precip';
@@ -20,14 +20,13 @@ import { drawFireworks, drawLightning } from '../fx/sky-events';
 import { drawPeople, peopleCount, setLanes, tickSpawns, updatePeople } from '../actors/people';
 import { S } from '../sky/state';
 import { drawSky, drawSnowCaps, drawStreet, type Street } from './common';
-import { type Palm, drawPalm } from './br-kit';
 import { TRAM_W, tramByDay, tramLeft } from './arcos-rules';
 import type { Scene } from './types';
 
 /* Five bays at this pixel scale: a full semicircle tall enough to read, with a thick pier.
    The real aqueduct has many more arches; the photo is a crop of them. */
 const BAYS = 5, BAY = 96, R = 34;
-const CAP = 4, SCALLOP = 16, UP = 56, LO = 98, FOOT = 108;
+const CAP = 24, SCALLOP = 36, UP = 76, LO = 118, FOOT = 128;
 const cxOf = (i: number) => BAY / 2 + i * BAY;
 
 const wr = mulberry32(0xa1ca);
@@ -37,12 +36,6 @@ const street: Street = { y0: FOOT, base: new Uint8Array(SH * WW), pud: new Uint8
 const wins: { x: number; y: number; rank: number }[] = [];
 let caps = new Float32Array(0);
 
-const PALMS: Palm[] = [
-  { x: 48, ground: FOOT, h: 62, lean: -0.3, ph: 0.6, imperial: true },
-  { x: 144, ground: FOOT, h: 56, lean: 0.2, ph: 2.1, imperial: true },
-];
-/** Lower openings that hold a parked white car in the day photo. */
-const CARS = [1, 2, 4];
 /** Openings with a lamp visible in the night photo. */
 const LAMPS = [0, 2, 3, 4];
 
@@ -63,13 +56,30 @@ function voidArch(ly: Layer, cx: number, spring: number, r: number) {
 }
 
 function buildBack() {
-  // Only the lower part of each opening is a building. The rest stays empty so the real sky
-  // shows through the arch, instead of a flat colour that reads as a solid dome.
+  // The cathedral rises behind the aqueduct: a truncated cone with concrete ribs
+  // and the fine horizontal grid visible in the supplied reference photographs.
+  const center = 338, top = 1, bottom = FOOT;
+  for (let y = top; y < bottom; y++) {
+    const k = (y - top) / (bottom - top);
+    const half = 12 + k * 48;
+    for (let x = Math.ceil(center - half); x <= Math.floor(center + half); x++) {
+      const u = (x - center) / half;
+      const rib = Math.abs(u) > 0.91 || Math.abs(u + 0.37) < 0.035 || Math.abs(u - 0.35) < 0.035;
+      const grid = y % 4 === 0 || (Math.round((u + 1) * 16) % 3 === 0 && y % 4 < 2);
+      Lp(back, x, y, rib ? STONEL : grid ? STEEL : BNEAR);
+    }
+  }
+  L(back, center - 12, top, 24, 2, STONEL);
+  // Low urban facades show through the lower arches, in front of the cathedral.
   for (let i = 0; i < BAYS; i++) {
     const cx = cxOf(i), x0 = cx - R + 4, w = R * 2 - 8;
-    const wall = i < 2 ? FORNG : BMID;
-    L(back, x0, LO - 16, w, FOOT - (LO - 16), wall);
-    L(back, x0, LO - 16, w, 2, i < 2 ? CYELL : STEEL);
+    if (i !== 3) {
+      L(back, x0, LO - 20, w, FOOT - (LO - 20), i < 2 ? STONE : BMID);
+      L(back, x0, LO - 20, w, 2, STEEL);
+      for (let x = x0 + 5; x < x0 + w - 3; x += 12) {
+        L(back, x, LO - 15, 5, 5, CNAVY);
+      }
+    }
     if (i === BAYS - 1) {
       L(back, x0 + 4, LO - 10, w - 8, 16, CBEIGE);
       L(back, x0 + 6, LO - 6, 8, 10, CYELL);
@@ -88,6 +98,13 @@ function buildArch() {
     const cx = cxOf(i);
     voidArch(arch, cx, UP, R);
     voidArch(arch, cx, LO, R);
+    // Continue each curved opening downward so the arches do not end as flat domes.
+    L(arch, cx - R + 1, UP + 1, R * 2 - 2, 5, 255);
+    L(arch, cx - R + 1, LO + 1, R * 2 - 2, FOOT - LO - 1, 255);
+    L(arch, cx - R, UP + 1, 1, 5, STEEL);
+    L(arch, cx + R - 1, UP + 1, 1, 5, STEEL);
+    L(arch, cx - R, LO + 1, 1, FOOT - LO - 1, STEEL);
+    L(arch, cx + R - 1, LO + 1, 1, FOOT - LO - 1, STEEL);
   }
   // catenary poles and the two wires along the deck
   for (const x of [36, 156, 276, 396]) L(arch, x, CAP - 18, 1, 18, STEEL);
@@ -96,19 +113,16 @@ function buildArch() {
 }
 
 function buildGround() {
-  // irregular flagstones, not a running-bond brick wall: each row shifts and the stones vary
+  // Subtle stone paving: individual slabs share a tone instead of pixel noise.
   for (let d = 0; d < SH; d++) for (let x = 0; x < WW; x++) {
-    const rowH = 8 + ((d * 3) % 5);
-    const row = (d / rowH) | 0;
-    const stoneW = 14 + ((row * 5) % 9);
-    const shift = (row * 17) % stoneW;
-    const jx = (x + shift) % stoneW;
-    const edge = jx < 1;
-    const n = wr();
-    street.base[d * WW + x] = d < 4 ? BNEAR : edge ? BMID : n < 0.5 ? STONE : n < 0.82 ? STONEL : BMID;
+    const row = Math.floor(d / 9), shiftedX = x + (row % 2) * 11;
+    const col = Math.floor(shiftedX / 22);
+    const joint = d % 9 === 0 || shiftedX % 22 === 0;
+    const tone = (row * 13 + col * 7) % 5;
+    street.base[d * WW + x] = d < 3 ? BMID : joint ? STONE : tone === 0 ? STONEL : STONE;
   }
   // the round drain on the right of the day photo
-  const dx = 404, dy = 56;
+  const dx = 404, dy = 38;
   for (let d = 0; d < SH; d++) for (let x = 0; x < WW; x++) {
     const a = (x - dx) / 5, b = (d - dy) / 3;
     if (a * a + b * b < 1 && a * a + b * b > 0.35) street.base[d * WW + x] = BMID;
@@ -125,16 +139,6 @@ function buildGround() {
 function drawWindows() {
   const lit = S.dayK < 0.45 ? 0.75 : 0;
   for (const w of wins) if (w.rank < lit) rect(w.x, w.y, 2, 2, WWARM);
-}
-
-function drawCars() {
-  for (const i of CARS) {
-    const x = cxOf(i) - 10, y = LO - 8;
-    rect(x, y, 20, 6, WHITE);
-    rect(x + 3, y + 1, 10, 3, CNAVY);
-    rect(x + 2, y + 5, 4, 2, STEEL);
-    rect(x + 14, y + 5, 4, 2, STEEL);
-  }
 }
 
 function drawTram(x: number) {
@@ -183,8 +187,6 @@ function render() {
   drawFireworks();
   blitLayer(back);
   drawWindows();
-  for (const p of PALMS) drawPalm(p);
-  drawCars();
   blitLayer(arch);
   pierShade();
   bayLamps();
@@ -208,7 +210,7 @@ export const arcosLapa: Scene = {
       caps = snowCaps(arch, wr);
       built = true;
     }
-    setLanes([{ y: 136 }, { y: 162 }], { bikes: false });
+    setLanes([{ y: 148 }, { y: 169 }], { bikes: false });
     configure({ roofs: [{ x0: 0, x1: WW, y: CAP }], tips: [], lamps: [], ground0: FOOT, horizon: CAP });
     for (let i = 0; i < 150; i++) update(1 / 30);
   },

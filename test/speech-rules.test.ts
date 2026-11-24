@@ -12,7 +12,7 @@ const SCENES = {
   campina: ['acude-velho', 'piramide-parque-do-povo', 'estacao-velha', 'parque-da-crianca', 'partage-shopping', 'partage-interior', 'partage-alimentacao', 'cinema-partage', 'terminal-integracao'],
   joaopessoa: ['cabo-branco'], areia: ['centro-areia'], remigio: ['lagoa-remigio', 'cinema-remigio', 'cinema-facade-remigio'],
   tokyo: ['rain-corner', 'neon-alley', 'konbini', 'shrine'],
-  rio: ['arcos-da-lapa'],
+  rio: ['arcos-da-lapa', 'copacabana'],
 } as const;
 type C = keyof typeof SCENES;
 const ALL = Object.entries(SCENES).flatMap(([city, ss]) => ss.map((scene) => ({ city: city as C, scene })));

@@ -179,11 +179,14 @@ export const PHRASES: Phrase[] = [
   ...group({ city: 'rio', tod: ['noite'] }, ['Boa noite!', 'A cidade acende.']),
   ...group({ city: 'rio', tod: ['madrugada'] }, ['Que silêncio bom.', 'Voltando pra casa.']),
   ...group({ city: 'rio', wx: 'heat', who: OUT }, ['Que calor, hein?', 'Preciso de uma sombra.']),
-  ...group({ city: 'rio', wx: 'rain', who: OUT }, ['Choveu na Lapa.', 'A praça ficou molhada.']),
+  ...group({ city: 'rio', wx: 'rain', who: OUT }, ['Começou a chover.', 'Melhor esperar a chuva passar.']),
   ...group({ city: 'rio', wx: 'cold', who: OUT }, ['Frio raro por aqui.', 'Hoje pede um casaco.']),
   ...group({ scene: 'arcos-da-lapa' }, ['Olha o tamanho desses arcos.', 'A Lapa tem um charme.', 'Vou tirar uma foto dos arcos.', 'koe cria!', 'eai, irmão!?', 'fala comigo, comandante!', 'mó paz.']),
   ...group({ scene: 'arcos-da-lapa', tod: ['manha', 'tarde'] }, ['Olha o bonde lá em cima!']),
   ...group({ scene: 'arcos-da-lapa', tod: ['noite'] }, ['Os arcos iluminados são lindos.', 'ta calor até de noite!']),
+  ...group({ scene: 'arcos-da-lapa', wx: 'rain' }, ['Choveu na Lapa.', 'A praça ficou molhada.']),
+  ...group({ scene: 'copacabana' }, ['Olha o desenho da calçada.', 'A praia tá linda.', 'Vou andar na orla.']),
+  ...group({ scene: 'copacabana', tod: ['noite'] }, ['Os postes acenderam.']),
 
   // ---------- Tóquio (pt-BR simples, com um toque de japonês) ----------
   ...group(TK, ['Konnichiwa!', 'Arigatô!', 'Sumimasen, com licença!', 'Tóquio nunca dorme.', 'Vou pegar um onigiri.', 'Oi, tudo bem? Genki?']),
